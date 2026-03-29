@@ -1,0 +1,175 @@
+@startuml AirlineFleetManagementSystem
+
+enum FlightStatus {
+    PARKED
+    TAKING_OFF
+    IN_FLIGHT
+    LANDING
+    MAINTENANCE
+}
+
+enum CrewRole {
+    CAPTAIN
+    FIRST_OFFICER
+    FLIGHT_ENGINEER
+    CABIN_CREW
+    FLIGHT_ATTENDANT
+}
+
+abstract class Aircraft {
+    - registrationNumber: String
+    - manufacturer: String
+    - model: String
+    - capacity: int
+    - maxSpeed: double
+    - currentAirport: Airport
+    - status: FlightStatus
+    --
+    + GetInfo(): String
+    + GetRegistrationNumber(): String
+    + GetCapacity(): int
+    + TakeOff(Airport): void
+    + Land(Airport): void
+    + GetStatus(): FlightStatus
+}
+
+class PassengerAircraft extends Aircraft {
+    - numberOfPassengers: int
+    - economySeats: int
+    - businessSeats: int
+    --
+    + BoardPassengers(int): void
+    + GetPassengerCount(): int
+    + GetAvailableSeats(): int
+}
+
+class CargoAircraft extends Aircraft {
+    - cargoCapacityInTons: double
+    - currentCargoWeightInTons: double
+    --
+    + LoadCargo(double): void
+    + UnloadCargo(double): void
+    + GetCurrentCargoWeight(): double
+    + GetAvailableCargoCapacity(): double
+}
+
+class Airport {
+    - code: String <<IATA>>
+    - name: String
+    - country: String
+    - totalGates: int
+    - activeFlights: List<Flight>
+    - availableGates: int
+    --
+    + GetCode(): String
+    + GetName(): String
+    + RegisterFlight(Flight): boolean
+    + DeregisterFlight(Flight): boolean
+    + GetActiveFlights(): List<Flight>
+    + GetAvailableGates(): int
+    + GetInfo(): String
+}
+
+class FlightRoute {
+    - routeId: String
+    - departureAirport: Airport
+    - arrivalAirport: Airport
+    - distance: double
+    - estimatedFlightDuration: TimeSpan
+    - airline: String
+    --
+    + GetRouteId(): String
+    + GetDepartureAirport(): Airport
+    + GetArrivalAirport(): Airport
+    + GetDistance(): double
+    + GetEstimatedDuration(): TimeSpan
+    + CalculateArrivalTime(DateTime): DateTime
+    + GetInfo(): String
+}
+
+class CrewMember {
+    - crewId: String
+    - name: String
+    - role: CrewRole
+    - licenseExpiration: DateTime
+    --
+    + GetCrewId(): String
+    + GetName(): String
+    + GetRole(): CrewRole
+    + IsLicenseValid(): boolean
+}
+
+class Flight {
+    - flightNumber: String
+    - aircraft: Aircraft
+    - route: FlightRoute
+    - scheduledDepartureTime: DateTime
+    - actualDepartureTime: DateTime
+    - scheduledArrivalTime: DateTime
+    - actualArrivalTime: DateTime
+    - status: FlightStatus
+    - crew: List<CrewMember>
+    --
+    + GetFlightNumber(): String
+    + GetAircraft(): Aircraft
+    + GetRoute(): FlightRoute
+    + GetStatus(): FlightStatus
+    + ScheduleFlight(DateTime): void
+    + DepartureFlight(): void
+    + ArrivalFlight(): void
+    + GetFlightInfo(): String
+    + GetScheduledDuration(): TimeSpan
+    + GetActualDuration(): TimeSpan
+    + IsDelayed(): boolean
+}
+
+class FleetManager {
+    - fleetName: String
+    - aircraft: List<Aircraft>
+    - airports: List<Airport>
+    - flights: List<Flight>
+    - routes: List<FlightRoute>
+    --
+    + AddAircraft(Aircraft): void
+    + RemoveAircraft(String): boolean
+    + GetAircraft(String): Aircraft
+    + GetAllAircraft(): List<Aircraft>
+    --
+    + AddAirport(Airport): void
+    + GetAirport(String): Airport
+    + GetAllAirports(): List<Airport>
+    --
+    + ScheduleFlight(Flight): void
+    + CancelFlight(String): void
+    + GetFlight(String): Flight
+    + GetAllFlights(): List<Flight>
+    --
+    + CreateRoute(Airport, Airport, double): FlightRoute
+    + GetRoute(String): FlightRoute
+    --
+    + GetFleetInfo(): String
+    + GetOperationalStatistics(): String
+    + GenerateDailyReport(): String
+}
+
+Aircraft <|-- PassengerAircraft : inherits
+Aircraft <|-- CargoAircraft : inherits
+
+Flight "1" o-- "1" Aircraft : uses
+Flight "1" o-- "1" FlightRoute : on route
+Flight "*" -- "1" Airport : departureFrom
+Flight "*" -- "1" Airport : arrivesAt
+Flight "*" -- "*" CrewMember : has crew
+
+FlightRoute "1" o-- "1" Airport : from
+FlightRoute "1" o-- "1" Airport : to
+
+FleetManager "1" *-- "*" Aircraft : manages
+FleetManager "1" *-- "*" Airport : manages
+FleetManager "1" *-- "*" Flight : manages
+FleetManager "1" *-- "*" FlightRoute : manages
+
+Flight o-- FlightStatus
+CrewMember o-- CrewRole
+
+@enduml

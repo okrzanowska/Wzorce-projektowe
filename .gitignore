@@ -1,0 +1,62 @@
+# Build folders
+bin/
+obj/
+packages/
+.vs/
+
+# Project files
+*.csproj.user
+*.sln.DotSettings
+*.sln.DotSettings.user
+
+# Visual Studio
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Rider / ReSharper
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# User-specific files
+*.rsuser
+
+# Test Results
+TestResults/
+*.trx
+
+# Build output
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
+*.tmp
+*.temp
+
+# Node modules (if applicable)
+node_modules/
+
+# Environment files
+.env
+.env.local
