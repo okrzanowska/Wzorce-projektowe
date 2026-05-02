@@ -1,0 +1,11 @@
+@startuml Logger
+class Logger {
+  - static Lazy<Logger> instance
+  - readonly List<string> logHistory
+  - static readonly object lockObj
+  - Logger()
+  + static Logger GetInstance()
+  + void Log(string message)
+  + List<string> GetLogHistory()
+}
+@enduml

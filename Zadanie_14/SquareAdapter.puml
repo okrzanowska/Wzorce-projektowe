@@ -1,0 +1,17 @@
+@startuml SquareAdapter
+class Square {
+  + double GetSide()
+}
+
+interface IShape {
+  + double GetArea()
+}
+
+class SquareAdapter implements IShape {
+  - Square square
+  + SquareAdapter(Square square)
+  + double GetArea()
+}
+
+SquareAdapter --> Square : adapts
+@enduml

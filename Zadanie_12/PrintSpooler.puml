@@ -1,0 +1,11 @@
+@startuml PrintSpooler
+class PrintSpooler {
+  - static Lazy<PrintSpooler> instance
+  - readonly Queue<string> printQueue
+  - static readonly object lockObj
+  - PrintSpooler()
+  + static PrintSpooler GetInstance()
+  + void AddJob(string job)
+  + void ProcessJobs()
+}
+@enduml
