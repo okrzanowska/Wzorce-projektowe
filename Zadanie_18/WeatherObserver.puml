@@ -1,0 +1,25 @@
+@startuml WeatherObserver
+interface IWeatherObserver {
+  + void Update(float temperature, float humidity)
+}
+
+class WeatherStation {
+  - List<IWeatherObserver> observers
+  - float temperature
+  - float humidity
+  + void RegisterObserver(IWeatherObserver observer)
+  + void RemoveObserver(IWeatherObserver observer)
+  + void SetWeather(float temperature, float humidity)
+  - void NotifyObservers()
+}
+
+class CurrentConditionsDisplay implements IWeatherObserver {
+  + void Update(float temperature, float humidity)
+}
+
+class ForecastDisplay implements IWeatherObserver {
+  + void Update(float temperature, float humidity)
+}
+
+WeatherStation --> IWeatherObserver : notifies
+@enduml

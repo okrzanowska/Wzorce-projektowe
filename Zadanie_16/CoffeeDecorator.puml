@@ -1,0 +1,35 @@
+@startuml CoffeeDecorator
+interface ICoffee {
+  + string GetDescription()
+  + double GetCost()
+}
+
+class SimpleCoffee implements ICoffee {
+  + string GetDescription()
+  + double GetCost()
+}
+
+abstract class CoffeeDecorator implements ICoffee {
+  # ICoffee coffee
+  + CoffeeDecorator(ICoffee coffee)
+  + string GetDescription()
+  + double GetCost()
+}
+
+class MilkDecorator extends CoffeeDecorator {
+  + string GetDescription()
+  + double GetCost()
+}
+
+class SugarDecorator extends CoffeeDecorator {
+  + string GetDescription()
+  + double GetCost()
+}
+
+class CreamDecorator extends CoffeeDecorator {
+  + string GetDescription()
+  + double GetCost()
+}
+
+CoffeeDecorator --> ICoffee : wraps
+@enduml

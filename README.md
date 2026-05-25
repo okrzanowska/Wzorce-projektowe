@@ -46,6 +46,15 @@ Repozytorium zawiera projekty realizowane w ramach ćwiczeń laboratoryjnych z p
 - **Zadanie_15/** (Zadanie 1.5)
   Logger z adapterem i wzorzec Adapter.
 
+- **Zadanie_16/** (Zadanie 1.6)
+  System zamawiania kawy i wzorzec Decorator.
+
+- **Zadanie_17/** (Zadanie 1.7)
+  System obsługi biletów i wzorzec Chain of Responsibility.
+
+- **Zadanie_18/** (Zadanie 1.8)
+  Stacja pogodowa i wzorzec Observer.
+
 ## Wymagania
 
 - **.NET SDK 8.0**
@@ -96,7 +105,7 @@ cd ..
 
 ## Cele Edukacyjne
 
-- Nauka wzorców projektowych: Singleton, Builder, Adapter.
+- Nauka wzorców projektowych: Singleton, Builder, Adapter, Decorator, Chain of Responsibility, Observer.
 - Praktyka UML i implementacji obiektowej.
 
 

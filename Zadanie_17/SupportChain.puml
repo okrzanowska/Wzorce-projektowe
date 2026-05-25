@@ -1,0 +1,35 @@
+@startuml SupportChain
+enum TicketType {
+  Technical
+  Billing
+  General
+}
+
+class SupportTicket {
+  + TicketType Type
+  + string Description
+  + SupportTicket(TicketType type, string description)
+}
+
+abstract class SupportHandler {
+  - SupportHandler next
+  + SupportHandler SetNext(SupportHandler handler)
+  + void Handle(SupportTicket ticket)
+  # void PassToNext(SupportTicket ticket)
+}
+
+class TechnicalHandler extends SupportHandler {
+  + void Handle(SupportTicket ticket)
+}
+
+class BillingHandler extends SupportHandler {
+  + void Handle(SupportTicket ticket)
+}
+
+class GeneralHandler extends SupportHandler {
+  + void Handle(SupportTicket ticket)
+}
+
+SupportHandler --> SupportHandler : next
+SupportHandler ..> SupportTicket : handles
+@enduml
